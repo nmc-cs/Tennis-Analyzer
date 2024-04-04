@@ -8,7 +8,7 @@ def main():
 
     #detects players
     player_tracker = PlayerTracker(model_path = 'yolov8x')
-    player_detections = player_tracker.detect_frames(video_frames)
+    player_detections = player_tracker.detect_frames(video_frames, read_from_remain=False, remain_path="tracker_remains/player_detections.pkl")
 
     #drawing output of player bounding boxes
     output_video_frames = player_tracker.draw_boundingboxes(video_frames, player_detections)
