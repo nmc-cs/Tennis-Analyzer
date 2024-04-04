@@ -39,7 +39,7 @@ class PlayerTracker:
             for track_id, boundingbox in player_dict.items():
                 x1, y1, x2, y2 = boundingbox
                 #writes text ontop of frame
-                cv2.putText(frame, f"Player ID: {track_id}", (int(boundingbox[0], int(boundingbox[1] - 10))), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
+                cv2.putText(frame, f"Player ID: {track_id}", (int(boundingbox[0]), int(boundingbox[1] - 10)), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
                 #corners of the frame w/ RGB color border
                 frame = cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
             output_video_frames.append(frame)
