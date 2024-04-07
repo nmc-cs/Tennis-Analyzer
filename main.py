@@ -14,6 +14,8 @@ def main():
     ball_tracker = BallTracker(model_path='models/yolo5_last.pt')
     ball_detections = ball_tracker.detect_frames(video_frames, read_from_remain=True, remain_path="tracker_remains/ball_detections.pkl")
 
+    ball_detections = ball_tracker.interpolate_ball_positions(ball_detections)
+
     #court line detection
     court_model_path = "models/keypoints_model.pth"
     court_line_detector = CourtLineDetector(court_model_path)
