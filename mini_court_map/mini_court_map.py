@@ -8,7 +8,7 @@ from utils import (convert_meters_to_pixel_distance, convert_pixel_distance_to_m
 class MiniCourt():
     def __init__(self, frame):
         self.drawing_rectangle_width = 250
-        self.drawing_rectangle_height = 450
+        self.drawing_rectangle_height = 500
         self.buffer = 50
         self.padding_court = 20
 
@@ -110,6 +110,14 @@ class MiniCourt():
         self.start_x = self.end_x - self.drawing_rectangle_width
         self.start_y = self.end_y - self.drawing_rectangle_height
 
+    def draw_court(self, frame):
+        for i in range(0, len(self.drawing_key_points),2):
+            x = int(self.drawing_key_points[i])
+            y = int(self.drawing_key_points[i+1])
+            cv2.circle(frame, (x,y),5, (0,0,255), -1)
+
+        return frame
+
     def draw_background_rectange(self, frame):
         shapes = np.zeros_like(frame, np.uint8)
         #draw rectange using cv2
@@ -126,7 +134,7 @@ class MiniCourt():
         output_frames = []
         for frame in frames:
             frame = self.draw_background_rectange(frame)
-
+            frame = self.draw_court(frame)
             output_frames.append(frame)
 
         return output_frames
