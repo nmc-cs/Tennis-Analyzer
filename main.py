@@ -29,6 +29,10 @@ def main():
     #MiniCourt setup
     mini_court_map = MiniCourt(video_frames[0])
 
+    #detecting ball contact points
+    ball_shot_frames = ball_tracker.get_ball_shot_frames(ball_detections)
+    print(ball_shot_frames)
+
     #drawing output of player bounding boxes & ball bounding boxes & court keypoints
     output_video_frames = player_tracker.draw_boundingboxes(video_frames, player_detections)
     output_video_frames = ball_tracker.draw_boundingboxes(output_video_frames, ball_detections)
