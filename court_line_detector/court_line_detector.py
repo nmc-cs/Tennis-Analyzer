@@ -6,11 +6,9 @@ import numpy as np
 
 class CourtLineDetector:
     def __init__(self, model_path):
-        self.model = models.resnet50(weights='ResNet50_Weights.IMAGENET1K_V1')
-        #self.model = models.resnet50(pretrained=True)
+        self.model = models.resnet50(pretrained=True)
         self.model.fc = torch.nn.Linear(self.model.fc.in_features, 14*2)
         self.model.load_state_dict(torch.load(model_path, map_location='cpu'))
-
         self.transform = transforms.Compose([
             transforms.ToPILImage(),
             transforms.Resize((224, 224)),
@@ -19,6 +17,8 @@ class CourtLineDetector:
         ])
 
     def predict(self, image):
+
+
         image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image_tensor = self.transform(image_rgb).unsqueeze(0)
         with torch.no_grad():
@@ -31,6 +31,7 @@ class CourtLineDetector:
         return keypoints
 
     def draw_keypoints(self, image, keypoints):
+        # Plot keypoints on the image
         for i in range(0, len(keypoints), 2):
             x = int(keypoints[i])
             y = int(keypoints[i+1])

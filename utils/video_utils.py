@@ -1,4 +1,3 @@
-# allows us to read and save videos
 import cv2
 
 def read_video(video_path):
